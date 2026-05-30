@@ -8,6 +8,9 @@ use App\Models\Persona;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Cache;
+
 use OpenApi\Attributes as OA;
 
 class AdministracionController extends Controller
@@ -177,6 +180,7 @@ class AdministracionController extends Controller
         path: "/admin/estadisticas",
         operationId: "getEstadisticas",
         summary: "Estadísticas generales de la plataforma",
+        description: "Retorna métricas generales. OPTIMIZACIÓN: Los datos se almacenan en caché durante 60 minutos para mejorar el tiempo de respuesta. Aplica límite de tasa (Rate Limiting) de 60 peticiones/minuto.",
         tags: ["Administración"],
         responses: [
             new OA\Response(
@@ -198,14 +202,19 @@ class AdministracionController extends Controller
     )]
     public function estadisticas(): JsonResponse
     {
-        return $this->successResponse([
-            'total_personas'       => Persona::count(),
-            'personas_validadas'   => Persona::where('validado', true)->count(),
-            'total_empresas'       => Empresa::count(),
-            'empresas_validadas'   => Empresa::where('validado', true)->count(),
-            'contactos_pendientes' => ContactoSolicitado::where('estado', 'pendiente')->count(),
-            'contactos_en_proceso' => ContactoSolicitado::whereIn('estado', ['contactado', 'entrevista'])->count(),
-            'contactos_exitosos'   => ContactoSolicitado::where('estado', 'seleccionado')->count(),
-        ]);
+        // Guardamos o recuperamos los datos en caché por 1 hora (3600 segundos)
+        $datos = Cache::remember('estadisticas_proviemplea', 3600, function () {
+            return [
+                'total_personas'       => Persona::count(),
+                'personas_validadas'   => Persona::where('validado', true)->count(),
+                'total_empresas'       => Empresa::count(),
+                'empresas_validadas'   => Empresa::where('validado', true)->count(),
+                'contactos_pendientes' => ContactoSolicitado::where('estado', 'pendiente')->count(),
+                'contactos_en_proceso' => ContactoSolicitado::whereIn('estado', ['contactado', 'entrevista'])->count(),
+                'contactos_exitosos'   => ContactoSolicitado::where('estado', 'seleccionado')->count(),
+            ];
+        });
+
+        return $this->successResponse($datos);
     }
 }
