@@ -37,8 +37,8 @@ docker compose exec app composer install
 # 5. Generar clave de aplicación
 docker compose exec app php artisan key:generate
 
-# 6. Ejecutar migraciones
-docker compose exec app php artisan migrate 
+# 6. Ejecutar migraciones (:fresh para quitar residuos o proyectos previos)
+docker compose exec app php artisan migrate:fresh
 
 # 7. Generar documentación Swagger
 docker compose exec app php artisan l5-swagger:generate
