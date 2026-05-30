@@ -20,7 +20,7 @@ Plataforma digital de búsqueda inversa de empleo para vecinas/os de Providencia
 ```bash
 # 1. Clonar el repositorio
 git clone https://github.com/CrisBustosE/proviemplea_eva3
-cd proviemplea_eva3
+cd proviemplea_eva3/backend
 
 # 2. Copiar el archivo de entorno
 cp .env.example .env
