@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Configuración de Rate Limiting para la API: 60 peticiones por minuto por IP
-        // Nota: Laravel 11 aplica automáticamente el limitador llamado api a todas las rutas dentro de routes/api.php, asi que con esto protegemos todo.
+        // Nota: Este codigo registra la regla en el sistema de laravel, despues puede ser leido por un middleware para aplicar la regla y proteger el sistema
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->ip());
         });
