@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "ProviEmplea API",
-        "description": "API REST para la plataforma de empleo ProviEmplea de Providencia. Permite gestionar talentos, empresas y procesos de selección con curriculum ciego.",
+        "description": "API REST para la plataforma de empleo ProviEmplea de Providencia.\n\n**Rendimiento y Límites:**\n- **Rate Limiting:** Todas las rutas están limitadas a 60 peticiones por minuto por IP para prevenir abusos.\n- **Caché:** Los endpoints de lectura pesada (como estadísticas) implementan caché en memoria con TTL de 1 hora para optimizar tiempos de respuesta (< 50ms).",
         "version": "1.0.0"
     },
     "servers": [
@@ -161,6 +161,7 @@
                     "Administración"
                 ],
                 "summary": "Estadísticas generales de la plataforma",
+                "description": "Retorna métricas generales. OPTIMIZACIÓN: Los datos se almacenan en caché durante 60 minutos para mejorar el tiempo de respuesta. Aplica límite de tasa (Rate Limiting) de 60 peticiones/minuto.",
                 "operationId": "getEstadisticas",
                 "responses": {
                     "200": {

@@ -180,6 +180,7 @@ class AdministracionController extends Controller
         path: "/admin/estadisticas",
         operationId: "getEstadisticas",
         summary: "Estadísticas generales de la plataforma",
+        description: "Retorna métricas generales. OPTIMIZACIÓN: Los datos se almacenan en caché durante 60 minutos para mejorar el tiempo de respuesta. Aplica límite de tasa (Rate Limiting) de 60 peticiones/minuto.",
         tags: ["Administración"],
         responses: [
             new OA\Response(
