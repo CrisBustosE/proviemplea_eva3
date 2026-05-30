@@ -25,21 +25,8 @@ Plataforma digital de búsqueda inversa de empleo para vecinas/os de Providencia
 git clone https://github.com/CrisBustosE/proviemplea_eva3
 cd proviemplea_eva3/backend
 
-# 2. Copiar el archivo de entorno
+# 2. Copiar el archivo de entorno (Trae las credenciales y DB listas para levantar el proyecto)
 cp .env.example .env
-
-# 3. Editar .env con los siguientes valores:
-APP_NAME="ProviEmplea API"
-APP_ENV=local
-APP_DEBUG=true
-APP_URL=http://localhost:8080
-
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=proviemplea
-DB_USERNAME=proviemplea_user
-DB_PASSWORD=proviemplea_pass
 
 # 3. Levantar los contenedores
 docker compose up -d --build
