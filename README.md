@@ -2,6 +2,9 @@
 
 Plataforma digital de búsqueda inversa de empleo para vecinas/os de Providencia. Las empresas buscan a los candidatos, no al revés. Los perfiles se presentan en formato **CV ciego**: sin nombre, edad, género ni comuna, para evitar discriminación arbitraria en el proceso de selección.
 
+# Link al repositorio del proyecto (GitHub)
+> https://github.com/CrisBustosE/proviemplea_eva3
+
 ## Stack Tecnológico Definido
 - **Lenguaje:** PHP 8.2
 - **Framework:** Laravel 11
@@ -47,7 +50,7 @@ docker compose exec app composer install
 # 5. Generar clave de aplicación
 docker compose exec app php artisan key:generate
 
-# 6. Ejecutar migraciones y seeders
+# 6. Ejecutar migraciones
 docker compose exec app php artisan migrate 
 
 # 7. Generar documentación Swagger
